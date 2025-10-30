@@ -4,6 +4,7 @@ import { Footer } from './components/Footer';
 import { ProjectCard } from './components/ProjectCard';
 import { AdminDashboard } from './components/AdminDashboard';
 import { DonationModal } from './components/DonationModal';
+import { PasswordModal } from './components/PasswordModal';
 import type { Project } from './types';
 
 const initialProjects: Project[] = [
@@ -45,6 +46,7 @@ const App: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [isAdminView, setIsAdminView] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isPasswordModalVisible, setIsPasswordModalVisible] = useState(false);
 
   const addProject = useCallback((data: Omit<Project, 'id'>) => {
     const newProject: Project = {
@@ -62,9 +64,22 @@ const App: React.FC = () => {
     setProjects(prev => prev.filter(p => p.id !== id));
   }, []);
   
+  const handleToggleView = () => {
+    if (isAdminView) {
+      setIsAdminView(false);
+    } else {
+      setIsPasswordModalVisible(true);
+    }
+  };
+
+  const handleLoginSuccess = () => {
+    setIsAdminView(true);
+    setIsPasswordModalVisible(false);
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <Header isAdminView={isAdminView} setIsAdminView={setIsAdminView} />
+      <Header isAdminView={isAdminView} onToggleView={handleToggleView} />
       <main className="flex-grow">
         {isAdminView ? (
           <AdminDashboard 
@@ -93,6 +108,12 @@ const App: React.FC = () => {
             project={selectedProject}
             onClose={() => setSelectedProject(null)}
           />
+      )}
+      {isPasswordModalVisible && (
+        <PasswordModal
+          onSuccess={handleLoginSuccess}
+          onClose={() => setIsPasswordModalVisible(false)}
+        />
       )}
        <a
           href="https://wa.me/201500195095"
