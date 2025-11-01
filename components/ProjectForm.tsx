@@ -16,6 +16,11 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmit, projectToEdi
     imageUrl: '',
     goal: 5000000,
     currentAmount: 0,
+    bankAccount: {
+      bankName: 'بنك السودان (Bankak)',
+      accountName: '',
+      accountNumber: '',
+    },
   });
 
   useEffect(() => {
@@ -26,15 +31,38 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmit, projectToEdi
         imageUrl: projectToEdit.imageUrl,
         goal: projectToEdit.goal,
         currentAmount: projectToEdit.currentAmount,
+        bankAccount: projectToEdit.bankAccount,
       });
     } else {
-      setFormData({ title: '', description: '', imageUrl: '', goal: 5000000, currentAmount: 0 });
+      setFormData({ 
+        title: '', 
+        description: '', 
+        imageUrl: '', 
+        goal: 5000000, 
+        currentAmount: 0,
+        bankAccount: {
+            bankName: 'بنك السودان (Bankak)',
+            accountName: '',
+            accountNumber: '',
+        }
+      });
     }
   }, [projectToEdit]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: (name === 'goal' || name === 'currentAmount') ? Number(value) : value }));
+    if (name.startsWith('bankAccount.')) {
+        const field = name.split('.')[1];
+        setFormData(prev => ({
+            ...prev,
+            bankAccount: {
+                ...prev.bankAccount,
+                [field]: value,
+            }
+        }));
+    } else {
+        setFormData(prev => ({ ...prev, [name]: (name === 'goal' || name === 'currentAmount') ? Number(value) : value }));
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -109,6 +137,24 @@ export const ProjectForm: React.FC<ProjectFormProps> = ({ onSubmit, projectToEdi
             <label htmlFor="currentAmount" className="block text-sm font-medium text-gray-700">المبلغ الحالي المجمع (ج.س)</label>
             <input type="number" name="currentAmount" id="currentAmount" value={formData.currentAmount} onChange={handleChange} required min="0" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
           </div>
+        </div>
+
+        <div className="bg-gray-50 p-6 rounded-lg border border-gray-200 mt-6">
+            <h3 className="text-lg font-bold text-gray-800 mb-4">تفاصيل الحساب البنكي</h3>
+            <div className="space-y-4">
+                <div>
+                    <label htmlFor="bankName" className="block text-sm font-medium text-gray-700">اسم البنك</label>
+                    <input type="text" name="bankAccount.bankName" id="bankName" value={formData.bankAccount.bankName} onChange={handleChange} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
+                </div>
+                <div>
+                    <label htmlFor="accountName" className="block text-sm font-medium text-gray-700">اسم صاحب الحساب</label>
+                    <input type="text" name="bankAccount.accountName" id="accountName" value={formData.bankAccount.accountName} onChange={handleChange} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
+                </div>
+                <div>
+                    <label htmlFor="accountNumber" className="block text-sm font-medium text-gray-700">رقم الحساب</label>
+                    <input type="text" name="bankAccount.accountNumber" id="accountNumber" value={formData.bankAccount.accountNumber} onChange={handleChange} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"/>
+                </div>
+            </div>
         </div>
 
         <div className="flex justify-end gap-4">

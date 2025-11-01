@@ -1,4 +1,10 @@
 
+export interface BankAccount {
+  bankName: string;
+  accountName: string;
+  accountNumber: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -6,4 +12,5 @@ export interface Project {
   imageUrl: string;
   goal: number;
   currentAmount: number;
+  bankAccount: BankAccount;
 }

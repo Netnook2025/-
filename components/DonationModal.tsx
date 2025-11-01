@@ -112,10 +112,10 @@ export const DonationModal: React.FC<DonationModalProps> = ({ project, onClose }
             <div className="text-gray-700 space-y-4">
                 <p>الرجاء تحويل <span className="font-bold text-blue-600">{finalAmount.toLocaleString('ar-EG')} ج.س</span> باستخدام التفاصيل أدناه:</p>
                 <div className="bg-gray-100 p-4 rounded-lg border border-gray-200 space-y-2">
-                    <p><span className="font-semibold">البنك:</span> بنك السودان (Bankak)</p>
+                    <p><span className="font-semibold">البنك:</span> {project.bankAccount.bankName}</p>
                     <div className="flex justify-between items-center">
-                        <p><span className="font-semibold">اسم الحساب:</span> ياسمين الامين</p>
-                        <button onClick={() => handleCopy('ياسمين الامين', 'name')} className="text-gray-500 hover:text-blue-600 transition-colors text-sm flex items-center gap-1">
+                        <p><span className="font-semibold">اسم الحساب:</span> {project.bankAccount.accountName}</p>
+                        <button onClick={() => handleCopy(project.bankAccount.accountName, 'name')} className="text-gray-500 hover:text-blue-600 transition-colors text-sm flex items-center gap-1">
                             {copiedValue === 'name' ? (
                                 <><i className="fas fa-check text-green-500"></i><span className="text-green-500">تم النسخ</span></>
                             ) : (
@@ -124,8 +124,8 @@ export const DonationModal: React.FC<DonationModalProps> = ({ project, onClose }
                         </button>
                     </div>
                     <div className="flex justify-between items-center">
-                        <p><span className="font-semibold">رقم الحساب:</span> 2268042</p>
-                         <button onClick={() => handleCopy('2268042', 'number')} className="text-gray-500 hover:text-blue-600 transition-colors text-sm flex items-center gap-1">
+                        <p><span className="font-semibold">رقم الحساب:</span> {project.bankAccount.accountNumber}</p>
+                         <button onClick={() => handleCopy(project.bankAccount.accountNumber, 'number')} className="text-gray-500 hover:text-blue-600 transition-colors text-sm flex items-center gap-1">
                             {copiedValue === 'number' ? (
                                 <><i className="fas fa-check text-green-500"></i><span className="text-green-500">تم النسخ</span></>
                             ) : (

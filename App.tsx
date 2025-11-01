@@ -5,7 +5,13 @@ import { ProjectCard } from './components/ProjectCard';
 import { AdminDashboard } from './components/AdminDashboard';
 import { DonationModal } from './components/DonationModal';
 import { PasswordModal } from './components/PasswordModal';
-import type { Project } from './types';
+import type { Project, BankAccount } from './types';
+
+const defaultBankAccount: BankAccount = {
+    bankName: 'بنك السودان (Bankak)',
+    accountName: 'ياسمين الامين',
+    accountNumber: '2268042',
+};
 
 const initialProjects: Project[] = [
     {
@@ -15,6 +21,7 @@ const initialProjects: Project[] = [
         imageUrl: 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=400&h=300&fit=crop&ixlib=rb-4.0.3',
         goal: 25000000,
         currentAmount: 6250000,
+        bankAccount: defaultBankAccount,
     },
     {
         id: '2',
@@ -23,6 +30,7 @@ const initialProjects: Project[] = [
         imageUrl: 'https://images.unsplash.com/photo-1589943313659-a29d63635a82?q=80&w=400&h=300&fit=crop&ixlib=rb-4.0.3',
         goal: 37500000,
         currentAmount: 22500000,
+        bankAccount: defaultBankAccount,
     },
     {
         id: '3',
@@ -31,6 +39,7 @@ const initialProjects: Project[] = [
         imageUrl: 'https://images.unsplash.com/photo-1619873215965-47963c633c14?q=80&w=400&h=300&fit=crop&ixlib=rb-4.0.3',
         goal: 15000000,
         currentAmount: 14000000,
+        bankAccount: defaultBankAccount,
     },
     {
         id: '4',
@@ -39,6 +48,7 @@ const initialProjects: Project[] = [
         imageUrl: 'https://images.unsplash.com/photo-1617823900734-7da565487779?q=80&w=400&h=300&fit=crop&ixlib=rb-4.0.3',
         goal: 20000000,
         currentAmount: 3750000,
+        bankAccount: defaultBankAccount,
     },
 ];
 
